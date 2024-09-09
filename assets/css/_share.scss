@@ -1,0 +1,112 @@
+/* ======================================
+  VARIABLES X FUNCTION
+====================================== */
+$font_aw : 'fontawesome';
+$font : 'db_heaventregular',Sans-serif;
+$font_med : 'db_heaventmed',Sans-serif;
+$font_bold : 'db_heaventbold',Sans-serif;
+$font_i : 'db_heaventitalic',Sans-serif;
+$color_blue : #000;
+$color_ccc : #ccc;
+$color_999 : #999;
+$color_gd_1 : #ddd;
+$color_gd_2 : #bbb;
+$color_blue_light : #F1F8FF;
+$b_radius : 8px;
+
+/* ======================================
+  SHARE
+====================================== */
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+@mixin transit($property){
+  @if($property) == 0 {
+    -webkit-transition: all 150ms ease 0s;
+    -moz-transition:all 150ms ease 0s;
+    -ms-transition: all 150ms ease 0s;
+    transition: all 150ms ease 0s;
+  } @else {
+    -webkit-transition: $property;
+    -moz-transition:$property;
+    -ms-transition: $property;
+    transition: $property;
+  }
+}
+@mixin transform($property){
+  -webkit-transform: $property;
+  -moz-transform:$property;
+  -ms-transform: $property;
+  transform: $property;
+}
+@mixin animate($property){
+  -webkit-animation: $property;
+  -moz-animation:$property;
+  -ms-animation: $property;
+  animation: $property;
+}
+@mixin keyframe($name){
+  @-webkit-keyframes #{$name} {@content;}
+  @-moz-keyframes #{$name} {@content;}
+  @-ms-keyframes #{$name} {@content;}
+  @keyframes #{$name} {@content;}
+}
+// [A]LL [B]ROW[S]ER
+@mixin abs($style,$property){
+  -webkit-#{$style}:$property;
+  -moz-#{$style}:$property;
+  -ms-#{$style}:$property;
+  #{$style}:$property;
+}
+@mixin smoothfont{-webkit-font-smoothing: antialiased;}
+@mixin webkit-radius(){
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  overflow: hidden;
+}
+@mixin reset-input {
+  border:none;
+  -webkit-appearance: none;
+  -moz-appearance:none;
+  -ms-appearance:none;
+  appearance:none;
+  padding: 0;
+  &:focus{
+    outline: none;
+  }
+}
+@mixin gd-white() {
+  background: rgba(255,255,255,0);
+  background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.51) 20%, rgba(255,255,255,0.91) 46%, rgba(255,255,255,1) 100%);
+  background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(255,255,255,0)), color-stop(20%, rgba(255,255,255,0.51)), color-stop(46%, rgba(255,255,255,0.91)), color-stop(100%, rgba(255,255,255,1)));
+  background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.51) 20%, rgba(255,255,255,0.91) 46%, rgba(255,255,255,1) 100%);
+  background: -o-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.51) 20%, rgba(255,255,255,0.91) 46%, rgba(255,255,255,1) 100%);
+  background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.51) 20%, rgba(255,255,255,0.91) 46%, rgba(255,255,255,1) 100%);
+  background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.51) 20%, rgba(255,255,255,0.91) 46%, rgba(255,255,255,1) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ffffff', GradientType=0 );
+}
+
+// KEYFRAME ANIMATE
+@include keyframe(shake) {
+  from,
+  to {
+    @include transform(translate3d(0, 0, 0));
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    @include transform(translate3d(-3px, 0, 0));
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    @include transform(translate3d(3px, 0, 0));
+  }
+}
