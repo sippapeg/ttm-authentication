@@ -10,8 +10,9 @@
 		'type' => '',
 		'app_id' => '',
 		'image' => '',
-		'cache_version' => '?v='.date('His')
+		'cache_version' => '?v='.date('YmdHis')
 	);
+	include('inc/lang.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">

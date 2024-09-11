@@ -2,8 +2,6 @@
 	VARIABLE & CALL
 ================================= */
 var $app = {};
-var user = detect.parse(navigator.userAgent);
-var lazy;
 var window_w = $(window).width();
 var emailCheck = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 var phoneCheck = /^-{0,1}\d*\.{0,1}\d+$/;
@@ -37,6 +35,7 @@ var msg = {
 	zipcode_invalid : 'กรุณาใส่รหัสไปรษณีย์ด้วยตัวเลขเท่านั้น',
 	terms : 'กรุณายอมรับเงื่อนไขการใช้บริการ',
 	captcha : 'กรุณาระบุตัวตน',
+	nationality : 'กรุณาเลือกสัญชาติ',
 	date : 'วัน',
 	month : 'เดือน',
 	year : 'ปี'
@@ -54,22 +53,7 @@ $(window).on('load',function(){
 ================================= */
 $app.check = {
 	init : function(){
-	},
-	/* CHECK IE */
-	ie : function(){
-		if(user.browser.family == "IE" && user.browser.major < 11){
-			return true;
-		} else {
-			return false;
-		}
-	},
-	/* CHECK SAFARI */
-	safari : function(){
-		if(user.device.type == "Desktop" && user.browser.family == "Safari" && user.browser.major < 12){
-			return true;
-		} else {
-			return false;
-		}
+
 	},
 	scroll : function(){
 		var pos = $(window).scrollTop();
@@ -83,41 +67,16 @@ $app.check = {
 	skipDOB = false,
 	skipIDcard = false,
 	skipAddress = false,
-	countryTH = true
+	countryTH = true,
+	telephoneCode = 'th',
 }
 $app.global = {
 	init : function(){
-		lazy = $('.lazy').lazy({
-		   visibleOnly: true,
-		   chainable: false
-	   });
+
 	},
 	scroll : function(){
 		$app.check.scroll();
 		$(window).on('scroll',$app.check.scroll);
-	}
-}
-$app.detail = {
-	init : function(){
-		var detail_h = $('.e-detail').height();
-
-		$app.global.scroll();
-
-		// btn more
-		if(detail_h >= 600){
-			$('.btn-more').show();
-		} else {
-			$('.btn-more').hide();
-		}
-		$('.btn-more').on('click',function(){
-			$('.e-detail-container').addClass('h-auto');
-			$(this).remove();
-		});
-
-		// detail editor custom
-		$('.e-text-editor table').each(function(){
-			$(this).wrap('<div class="table-responsive"></div>');
-		});
 	}
 }
 $app.dialog = {
@@ -139,31 +98,26 @@ $app.dialog = {
 		}
 	}
 }
-$app.search = {
-	open : function(){
-		$('.main-header').addClass('show-search');
-		$('#input-search').focus();
-		/*var tm = setTimeout(function(){
-			$('#input-search').focus();
-			clearTimeout(tm);
-		},600);*/
-	},
-	close : function(){
-		$('.main-header').removeClass('show-search');
-	}
-}
 $app.form = {
 	check : function($elm,msg){
 		$elm.parents('form').find('.text-alert').hide();
 		$elm.parents('form').find('.is-invalid').removeClass('is-invalid');
 		$elm.addClass('is-invalid').focus();
-		$elm.next('.text-alert').text(msg).show();
+		if(msg !== ""){
+			$elm.next('.text-alert').text(msg).show();
+		}
 	},
 	check2 : function($elm,msg){
 		$elm.parents('form').find('.text-alert').hide();
 		$elm.parents('form').find('.is-invalid').removeClass('is-invalid');
 		$elm.addClass('is-invalid').focus();
 		$elm.parent('*').find('.text-alert').text(msg).show();
+	},
+	checkSpecific : function($elm,msg,$alert){
+		$elm.parents('form').find('.text-alert').hide();
+		$elm.parents('form').find('.is-invalid').removeClass('is-invalid');
+		$elm.addClass('is-invalid').focus();
+		$($alert).text(msg).show();
 	},
 	clear : function(form){
 		$(form+' .text-alert').hide();
@@ -179,74 +133,20 @@ $app.fn = {
 			scrollTop : $(elm).offset().top - offsetx
 		},600,'swing');
 	},
-	getCountry : function(country) {
-		var lang = $('#lang').val();
-		if(country == "" || country == undefined){
-			var $country = 'TH'
-		} else {
-			var $country = country;
-		}
-		$.post('https://booking.thaiticketmajor.com/tickets/getcountry.ajax.php?lang='+lang+'', function(data) {
-			$('#country').append(data).addClass('active');
-			$('#country').val('TH');
-			$.post('https://booking.thaiticketmajor.com/tickets/getstate.ajax.php?lang=' + lang + '&value='+$country, function(data, status) {
-			  var re = eval('(' + data + ')');
-			  $("#province").html(re.pages).addClass('active');
-			  $("#province option[value='000']").html('กรุณาเลือก');
-			});
-		});
-	},
-	getProvince : function() {
-	  window.focus();
-	  $('#zipcode').val("");
-	  var value = $('#country').val();
-	  var lang = $('#lang').val();
-	  if(value === 'TH') {
-	    $('.row-state').show();
-	    $app.check.countryTH = true;
-	  } else {
-	    $('.row-state').hide();
-	    $app.check.countryTH = false;
-	  }
-	  var url = 'https://booking.thaiticketmajor.com/tickets/getstate.ajax.php?lang=' + lang + '&value=' + value;
-	  $.post(url, function(data, status) {
-	    var re = eval('(' + data + ')');
-	    $("#province").html(re.pages).addClass('active');
-	    $("#province option[value='000']").html('กรุณาเลือก');
-	    if(value === "000"){
-	    	$("#province").html('<option value="000">กรุณาเลือก</option>').removeClass('active');
-	    }
+	loadCountry : function($nationality,$country){
+		$.getJSON('assets/data/nationalities.json', function(data) {
+      var $select_nationality = $($nationality);
+      var $select_country = $($country);
+      $.each(data, function(country, nationality) {
+	      $select_nationality.append($('<option>', {
+	        value: nationality,
+	        text: nationality
+	       }));
+	      $select_country.append($('<option>', {
+	        value: country,
+	        text: country
+	       }));
+	     });
 	  });
-	  var url_2 = 'https://booking.thaiticketmajor.com/tickets/getcity.ajax.php?mode=2&lang=' + lang + '&value=' + value;
-	  $.post(url_2, function(data, status) {
-	    var re = eval('(' + data + ')');
-	    $("#district").html(re.pages).addClass('active');
-	    $("#district option[value='000']").html('กรุณาเลือก');
-	    if(value === "000"){
-	    	$("#district").html('<option value="000">กรุณาเลือก</option>').removeClass('active');
-	    }
-	  });
-	  return false;
-	},
-	getCity : function(){
-	  window.focus();
-		var value = $('#province').val();
-		var lang = $('#lang').val();
-	  var url = 'https://booking.thaiticketmajor.com/tickets/getcity.ajax.php?mode=1&lang='+lang+'&value='+value;
-		$.post(url,function(data, status){
-			var re = eval ('(' + data + ')');
-			$("#district").html(re.pages).addClass('active');
-	    $("#district option[value='000']").html(msg.amphoe);
-	    if(value === "000"){
-	    	$("#district").html('<option value="000">'+msg.amphoe+'</option>').removeClass('active');
-	    }
-		});
-		return false;
-	},
-	checkIDCard : function(id) {
-		for(i=0, sum=0; i < 12; i++)
-		  sum += parseFloat(id.charAt(i))*(13-i);
-		if((11-sum%11)%10!=parseFloat(id.charAt(12)))
-		  return false; return true;
 	}
 }

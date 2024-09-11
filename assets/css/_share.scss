@@ -1,18 +1,22 @@
 /* ======================================
+  FONT TYPE
+====================================== */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@400;500;600;700');
+
+
+/* ======================================
   VARIABLES X FUNCTION
 ====================================== */
 $font_aw : 'fontawesome';
-$font : 'db_heaventregular',Sans-serif;
-$font_med : 'db_heaventmed',Sans-serif;
-$font_bold : 'db_heaventbold',Sans-serif;
-$font_i : 'db_heaventitalic',Sans-serif;
+$font : 'Noto Sans Thai', sans-serif;
 $color_blue : #000;
 $color_ccc : #ccc;
 $color_999 : #999;
 $color_gd_1 : #ddd;
 $color_gd_2 : #bbb;
 $color_blue_light : #F1F8FF;
-$b_radius : 8px;
+$color_red : #DE0000;
+$b_radius : 0.4rem; 
 
 /* ======================================
   SHARE

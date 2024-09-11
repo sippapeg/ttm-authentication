@@ -5,15 +5,15 @@
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-auto">
-					<p><img src="https://www.thaiticketmajor.com/assets/img/logo-ttm-tm.png" width="136" /></p>
+					<p class="mt-4"><img src="https://www.thaiticketmajor.com/assets/img/logo-ttm-tm.png" width="168" /></p>
 				</div>
 				<div class="col-12">
-					<div class="text-center">
+					<hgroup class="hgroup">
 						<h1>ลงชื่อเข้าใช้</h1>
 						<p class="text-muted">สำหรับผู้ที่มีบัญชี THAITICKETMAJOR แล้ว</p>
-					</div>
+					</hgroup>
 				</div>
-				<div class="col-12">
+				<div class="col-12 col-md-6 col-xl-4">
 					<form class="mt-3" id="form-signin" novalidate>
 						<div class="form-group">
 							<input type="email" class="form-control form-control-lg" placeholder="ชื่อผู้ใช้ (อีเมล)" name="username" />
@@ -23,14 +23,29 @@
 							<input type="password" class="form-control form-control-lg" placeholder="รหัสผ่าน" name="password" />
 							<div class="text-alert">กรุณาใส่รหัสผ่าน</div>
 						</div>
-						<div class="form-group">
-							<button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-submit">เชื่อมโยงบัญชี</button>
+						<div class="form-group px-2h">
+							<div class="form-row">
+								<div class="col">
+									<div class="custom-control custom-checkbox">
+									  <input type="checkbox" class="custom-control-input" id="toggleShowPassword" tabIndex="-1" />
+									  <label class="custom-control-label font-reg" for="toggleShowPassword">แสดงรหัสผ่าน</label>
+									</div>
+								</div>
+								<div class="col-auto">
+									<span><a class="text-link text-muted" href="reset-password.php">ลืมรหัสผ่าน</a></span>
+								</div>
+							</div>
 						</div>
-						<input type="hidden" name="redir" id="redir" value="link-account.php">
+						<div class="form-group">
+							<button type="submit" class="btn btn-block btn-lg btn-primary" id="btn-submit">เข้าสู่ระบบ</button>
+						</div>
+						<input type="hidden" name="redir" id="redir" value="https://www.thaiticketmajor.com/index.html">
 					</form>
-					<p class="text-center"><a class="text-muted" href="reset-password.php">ลืมรหัสผ่าน</a></p>
-					<div class="border-top my-3"></div>
-					<p class="text-center">สำหรับผู้ใช้ใหม่กรุณา <a class="text-link font-med" href="sign-up.php">สร้างบัญชี</a></p>
+					<div class="border-top my-4 text-float"><span class="text-muted">หรือ</span></div>
+					<div class="form-group">
+						<button type="submit" class="btn btn-block btn-lg btn-border"><span class="font-normal"><img width="20" src="assets/img/icon/google.svg" class="mr-3">เข้าสู่ระบบด้วย Google</span></button>
+					</div>
+					<p class="text-center mt-4">สำหรับผู้ใช้ใหม่ <a class="text-link text-red font-med" href="sign-up.php">กรุณาสมัครสมาชิก</a></p>
 				</div>
 			</div>
 		</div>
@@ -74,6 +89,14 @@
 			}
 			e.preventDefault();
 		});
+	});
+	// Show password
+	$('#toggleShowPassword').on('change',function(){
+		if($(this).is(':checked')){
+			$(form+' [type="password"]').attr('type','text');
+		} else {
+			$(form+' [type="text"]').attr('type','password');
+		}
 	});
 </script>
 <?php include('inc/footer.php'); ?>

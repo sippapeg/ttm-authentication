@@ -1,35 +1,53 @@
-<?php
-	include('inc/head.php');
-?>
+<?php include('inc/head.php'); ?>
 	<main class="main-container" role="main">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="col-auto">
-					<p><img src="https://www.thaiticketmajor.com/assets/img/logo-ttm-tm.png" width="136" /></p>
+					<p><img src="https://www.thaiticketmajor.com/assets/img/logo-ttm-tm.png" width="168"/></p>
 				</div>
 				<div class="col-12">
-					<div class="text-center">
-						<h1>สร้างบัญชี</h1>
+					<hgroup class="hgroup">
+						<h1>สมัครสมาชิก</h1>
 						<p class="text-muted">กรุณาใส่ข้อมูลให้ครบถ้วน</p>
-					</div>
+					</hgroup>
 				</div>
-				<div class="col-12">
-					<form class="mt-3" id="form-signup" novalidate>
+				<div class="col-12 col-md-6 col-xl-4">
+					<div class="form-group mt-3">
+						<button type="submit" class="btn btn-block btn-lg btn-border"><span class="font-normal"><img width="20" src="assets/img/icon/google.svg" class="mr-3">ดำเนินการต่อด้วย Google</span></button>
+					</div>
+					<div class="border-top my-4 text-float"><span class="text-muted">หรือ สมัครสมาชิกด้วยอีเมล</span></div>
+					<form class="mt-3" id="form-signup" novalidate autocomplete="off">
 						<div class="step-1">
 							<div class="form-group">
-								<input type="tel" class="form-control" placeholder="เบอร์โทรศัพท์" name="telephone" />
+								<label class="pl-2h">ชื่อผู้ใช้ (อีเมล)</label>
+								<input type="email" class="form-control" placeholder="" name="mbLogin" autocomplete="off" />
 								<div class="text-alert"></div>
 							</div>
 							<div class="form-group">
-								<input type="email" class="form-control" placeholder="ชื่อผู้ใช้(อีเมล)" name="mbLogin" autocomplete="off" />
+								<label class="pl-2h">สร้างรหัสผ่าน</label>
+								<input type="password" class="form-control" placeholder="" name="mbPasswd" maxlength="16" autocomplete="off" onkeyup="checkPassword()" onfocus="getPassword()" id="password" />
 								<div class="text-alert"></div>
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control" placeholder="รหัสผ่าน (ต้องมี 8-16 ตัวอักษร)" name="mbPasswd" maxlength="16" autocomplete="off" />
-								<div class="text-alert"></div>
+								<ul class="checklist-password" id="requirements" style="display:none;">
+									<li class="text-med">รหัสผ่านต้องประกอบไปด้วย :</li>
+									<?php 
+										$_checklist_password = array(
+											array("length","".$_checkmsg_1.""),
+											array("lowercase","".$_checkmsg_2.""),
+											array("uppercase","".$_checkmsg_3.""),
+											array("number","".$_checkmsg_4.""),
+											array("special","".$_checkmsg_5."")
+										);
+										foreach ($_checklist_password as $k => $v) {
+											echo '<li id="'.$v[0].'">'.$v[1].'</li>';
+										}
+									?>
+			          </ul>
 							</div>
 							<div class="form-group">
-								<input type="password" class="form-control" placeholder="ยืนยันรหัสผ่าน" name="mbPasswdC" maxlength="16" autocomplete="off" />
+								<label class="pl-2h">ยืนยันรหัสผ่าน</label>
+								<input type="password" class="form-control" placeholder="" name="mbPasswdC" maxlength="16" autocomplete="off" />
 								<div class="text-alert"></div>
 							</div>
 							<div class="form-group px-2h">
@@ -42,7 +60,7 @@
 								<button type="button" class="btn btn-block btn-lg btn-primary" onclick="submitStep1();" id="btn-continue">ยืนยัน</button>
 							</div>
 							<div class="border-top my-4"></div>
-							<p class="text-center">สำหรับผู้มีบัญชีแล้วกรุณา <a class="text-link font-med" href="sign-in.php">ลงชื่อเข้าใช้</a></p>
+							<p class="text-center">สำหรับผู้มีบัญชีแล้วกรุณา <a class="text-red text-link font-med" href="index.php">เข้าสู่ระบบ</a></p>
 						</div>
 						<div class="step-2" style="display:none;">
 							<div class="form-control h-auto mb-3 bg-light">
@@ -51,32 +69,30 @@
 										<span class="text-break text-muted" data-signup="email"></span>
 									</div>
 									<div class="col-auto">
-										<span><a href="javascript:;" class="text-link" onclick="step1();">แก้ไข</a></span>
+										<span><a href="javascript:;" class="text-link text-primary" onclick="step1();">แก้ไข</a></span>
 									</div>
 								</div>
 							</div>
 							<div class="form-row">
-								<div class="col-6">
+								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" placeholder="ชื่อ" name="firstname" />
+										<label class="pl-2h">ชื่อ</label>
+										<input type="text" class="form-control" placeholder="" name="firstname" />
 										<div class="text-alert"></div>
 									</div>
 								</div>
-								<div class="col-6">
+								<div class="col-12 col-md-6">
 									<div class="form-group">
-										<input type="text" class="form-control" placeholder="นามสกุล" name="lastname" />
+										<label class="pl-2h">นามสกุล</label>
+										<input type="text" class="form-control" placeholder="" name="lastname" />
 										<div class="text-alert"></div>
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
-								<select class="custom-select" name="gender">
-									<option value="">เพศ</option>
-									<option value="M">ชาย</option>
-									<option value="F">หญิง</option>
-									<option value="other">อื่นๆ</option>
-								</select>
-								<div class="text-alert"></div>
+								<label class="pl-2h">เบอร์โทรศัพท์</label>
+								<input type="tel" class="form-control" name="telephone" id="telephone" />
+								<div class="text-alert" id="telephone-alert"></div>
 							</div>
 							<div class="form-group">
 								<div class="form-row">
@@ -85,7 +101,7 @@
 										<select class="custom-select" name="dob_date">
 											<!-- add options via js -->
 										</select>
-										<div class="text-alert"></div>
+										<div class="text-alert pr-0"></div>
 									</div>
 									<div class="col-5">
 										<select class="custom-select" name="dob_month">
@@ -101,66 +117,54 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group px-2h mb-2">
-								<div class="custom-control custom-radio custom-control-inline">
-								  <input type="radio" id="idcard" name="id_select" class="custom-control-input" value="idcard" checked>
-								  <label class="custom-control-label" for="idcard">หมายเลขบัตรประชาชน</label>
-								</div>
-								<div class="custom-control custom-radio custom-control-inline">
-								  <input type="radio" id="passport" name="id_select" class="custom-control-input" value="passport">
-								  <label class="custom-control-label" for="passport">หนังสือเดินทาง</label>
-								</div>
-							</div>
-							<div class="form-group" data-select="idcard">
-								<input type="text" class="form-control" placeholder="หมายเลขบัตรประชาชน" name="idcard_number" maxlenght="13" />
+							<div class="form-group">
+								<label class="pl-2h">เพศ</label>
+								<select class="custom-select" name="gender">
+									<option value="">กรุณาเลือก</option>
+									<option value="M">ชาย</option>
+									<option value="F">หญิง</option>
+									<option value="other">อื่นๆ</option>
+								</select>
 								<div class="text-alert"></div>
 							</div>
-							<div class="form-group" data-select="passport" style="display: none;">
-								<input type="text" class="form-control" placeholder="หมายเลขหนังสือเดินทาง" name="passport_number"/>
+							<div class="form-group">
+								<label class="pl-2h">สัญชาติ</label>
+								<select class="custom-select" id="nationality" name="nationality">
+									<option value="">กรุณาเลือก</option>
+								</select>
+								<div class="text-alert"></div>
+							</div>
+							<div class="form-group">
+								<label class="pl-2h">ประเทศ</label>
+								<select class="custom-select" id="country" name="country">
+									<option value="">กรุณาเลือก</option>
+								</select>
 								<div class="text-alert"></div>
 							</div>
 							<div class="form-group">
 								<label class="pl-2h" for="address">ที่อยู่</label>
-								<textarea class="form-control" name="address" id="address" placeholder="บ้านเลขที่, อาคาร, ถนน, ซอย, แขวง"></textarea>
+								<textarea class="form-control" name="address" id="address" placeholder="บ้านเลขที่, อาคาร, ถนน, ซอย"></textarea>
 								<div class="text-alert"></div>
 							</div>
-							<div class="form-row">
-								<div class="col-6">
-									<div class="form-group">
-										<label class="pl-2h" for="country">ประเทศ</label>
-										<select class="custom-select" id="country" name="country" onchange="$app.fn.getProvince();">
-											<!-- add options via js -->
-										</select>
-										<div class="text-alert"></div>
-									</div>
-								</div>
-								<div class="col-6 row-state">
-									<div class="form-group">
-										<label class="pl-2h" for="province">จังหวัด</label>
-										<select class="custom-select" id="province" name="province" onchange="$app.fn.getCity();">
-											<option value="000">กรุณาเลือก</option>
-											<!-- add options via js -->
-										</select>
-										<div class="text-alert"></div>
-									</div>
-								</div>
-								<div class="col-6 row-state">
-									<div class="form-group">
-										<label class="pl-2h" for="district">อำเภอ/เขต</label>
-										<select class="custom-select" id="district" name="district">
-											<option value="000">กรุณาเลือก</option>
-											<!-- add options via js -->
-										</select>
-										<div class="text-alert"></div>
-									</div>
-								</div>
-								<div class="col-6">
-									<div class="form-group">
-										<label class="pl-2h" for="zipcode">&nbsp;</label>
-										<input type="tel" class="form-control" placeholder="รหัสไปรษณีย์" name="zipcode" />
-										<div class="text-alert"></div>
-									</div>
-								</div>
+							<div class="form-group">
+								<label class="pl-2h" for="district">ตำบล/แขวง</label>
+								<input class="form-control" type="text" id="district" name="district">
+								<div class="text-alert"></div>
+							</div>
+							<div class="form-group">
+								<label class="pl-2h" for="district">อำเภอ/เขต</label>
+								<input class="form-control" type="text" id="amphoe" name="amphoe">
+								<div class="text-alert"></div>
+							</div>
+							<div class="form-group">
+								<label class="pl-2h" for="province">จังหวัด</label>
+								<input class="form-control" type="text" id="province" name="province">
+								<div class="text-alert"></div>
+							</div>
+							<div class="form-group">
+								<label class="pl-2h" for="zipcode">รหัสไปรษณีย์</label>
+								<input type="tel" class="form-control" id="zipcode" name="zipcode">
+								<div class="text-alert"></div>
 							</div>
 							<div class="form-group px-2h mb-2">
 					     <div class="custom-control custom-checkbox">
@@ -171,7 +175,7 @@
 							<div class="form-group px-2h mb-2">
 								<div class="custom-control custom-checkbox">
 					       <input type="checkbox" class="custom-control-input" id="terms" name="terms-service">
-					       <label class="custom-control-label font-reg" for="terms">ข้าพเจ้ายอมรับ <a href="javascript:;" data-fancybox data-type="ajax" data-src="_terms.php"><u>เงื่อนไขการใช้บริการ</u></a> เว็บไซต์ไทยทิคเกตเมเจอร์</label>
+					       <label class="custom-control-label font-reg" for="terms">ข้าพเจ้ายอมรับ <a href="https://corporate.thaiticketmajor.com/policies.php"  target="_blank"><u>เงื่อนไขการใช้บริการ</u></a> เว็บไซต์ไทยทิคเกตเมเจอร์</label>
 					       <div class="text-alert px-0"></div>
 					     </div>
 							</div>
@@ -187,44 +191,63 @@
 							</div>
 						</div>
 						<input type="hidden" name="lang" id="lang" value="1" >
+						<input type="hidden" name="telephoneCode" id="telephoneCode">
 					</form>
 				</div>
 			</div>
 		</div>
 	</main>
 <?php include('inc/javascript.php'); ?>
-<script src="https://www.google.com/recaptcha/api.js?onload=onloadRC" async defer></script>
+<script src="assets/js/vendor/check-password.min.js<?php echo $site['cache_version']; ?>"></script>
 <script src="https://www.thaiticketmajor.com/assets/js/core/jquery.cookie.js"></script>
 <script src="https://www.thaiticketmajor.com/assets/js/vendor/dobpicker.min.js"></script>
+<!-- International Telephone Number -->
+<link rel="stylesheet" href="assets/js/vendor/telephone/css/intlTelInput.min.css">
+<script src="assets/js/vendor/telephone/js/intlTelInputWithUtils.js"></script>
+<!-- jQuery.Thailand.js -->
+<script type="text/javascript" src="assets/js/vendor/jquery.Thailand.js/dependencies/JQL.min.js"></script>
+<script type="text/javascript" src="assets/js/vendor/jquery.Thailand.js/dependencies/typeahead.bundle.js"></script>
+<link rel="stylesheet" href="assets/js/vendor/jquery.Thailand.js/dist/jquery.Thailand.min.css">
+<script type="text/javascript" src="assets/js/vendor/jquery.Thailand.js/dist/jquery.Thailand.min.js"></script>
 <script>
-	var RC_signup;
-	var onloadRC = function(){
-		RC_signup = grecaptcha.render('RC_signup', {
-    	'sitekey' : '6Ld5SH0UAAAAAGAKKGZo-WvZVqKahSy_jgXG_pjr',
-   	});
-	};
 	var form = '#form-signup';
 	var $email = $(form+' [name="mbLogin"]');
 	var $password = $(form+' [name="mbPasswd"]');
 	var $confirm_password = $(form+' [name="mbPasswdC"]');
 	var button_continue = $('#btn-continue');
 	var button_submit = $('#btn-submit');
-	var idCardSelect = true;
-	var flagGetCountry = false;
+	var flagLoadCountry = false;
 	$(function(){
+		$('.step-2').show();
 
-		$app.fn.getCountry();
-		// Select default
+		// Set Load international phone number
+		const input = document.querySelector("#telephone");
+		const iti = window.intlTelInput(input, {
+			formatAsYouType: false,
+			initialCountry: "th"
+		});
+		input.addEventListener("countrychange", function() {
+		  var data = iti.getSelectedCountryData();
+		  $('#telephoneCode').val(data.dialCode);
+		  $app.check.telephoneCode = data.iso2;
+		});
+
+		// Set Load Country & Nationality
+		$app.fn.loadCountry('#nationality','#country');
+
+		// Set Select default
 		$('select').on('change',function(){
 			$(this).each(function(){
-				if($(this).val() != "" || $(this).val() != "000"){
+				if($(this).val() !== "" || $(this).val() !== 0){
 					$(this).addClass('active');
-				} else {
+				}
+				if($(this).val() == "" || $(this).val() == 0){
 					$(this).removeClass('active');
 				}
 			});
 		});
-		// DOB Picker
+
+		// Set DOB Picker
 		$.dobPicker({
 			daySelector: '[name="dob_date"]',
 			monthSelector: '[name="dob_month"]',
@@ -232,10 +255,19 @@
 			dayDefault: 'วัน',
 			monthDefault: 'เดือน',
 			yearDefault: 'ปี',
-			minimumAge: 5,
+			minimumAge: 7,
 			maximumAge: 99
 		});
-		// Show password
+
+		// Set Address Autocomplete
+		$.Thailand({
+	    $district: $('#district'),
+	    $amphoe: $('#amphoe'),
+	    $province: $('#province'),
+	    $zipcode: $('#zipcode')
+		});
+
+		// Toggle show/hide password
 		$('#toggleShowPassword').on('change',function(){
 			if($(this).is(':checked')){
 				$(form+' [type="password"]').attr('type','text');
@@ -243,45 +275,41 @@
 				$(form+' [type="text"]').attr('type','password');
 			}
 		});
-		// Check select id card/passport
-		$(form+' [name="id_select"]').on('change',function(){
-			if($(this).val() == 'idcard'){
-				$('[data-select="passport"]').hide().find('input').blur();
-				$('[data-select="idcard"]').show().find('input').focus();
-			} else {
-				$('[data-select="idcard"]').hide().find('input').blur();
-				$('[data-select="passport"]').show().find('input').focus();
-			}
-		});
+
 		// Sign up submit
 		$(form).on('submit',function(e){
 			submitSignup();
 			e.preventDefault();
 		});
 	});
+
 	function submitStep1(){
-		if($(form+' [name="telephone"]').val() == 0){
-			$app.form.check($(form+' [name="telephone"]'),msg.telephone);
-			return false;
-		} else if(!(phoneCheck.test($(form+' [name="telephone"]').val()))){
-			$app.form.check($(form+' [name="telephone"]'),msg.telephone_invalid);
-			return false;
-		} else if ($(form+' [name="telephone"]').val().toString().length < '8') {
-			$app.form.check($(form+' [name="telephone"]'),msg.telephone_limit);
-			return false;
-		} else if($email.val() == 0){
+		if($email.val() == 0){
 			$app.form.check($email,msg.email);
 			return false;
 		} else if(!(emailCheck.test($email.val()))){
 			$app.form.check($email,msg.email_invalid);
 			return false;
 		} else if($password.val() == 0){
-			$app.form.check($password,msg.password);
+			$app.form.check($password,"");
 			return false;
 		} else if($password.val().toString().length < '8'){
-			$app.form.check($password,msg.password_min);
+			alertCheckPassword();
+			return false;
+		} else if(!(/[a-z]/.test($password.val()))){
+			alertCheckPassword();
+			return false;
+		} else if(!(/[A-Z]/.test($password.val()))){
+			alertCheckPassword();
+			return false;
+		} else if(!(/[0-9]/.test($password.val()))){
+			alertCheckPassword();
+			return false;
+		} else if(!(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test($password.val()))){
+			alertCheckPassword();
 			return false;
 		} else if($confirm_password.val() == 0){
+			$('.checklist-password').hide();
 			$app.form.check($confirm_password,msg.password_confirm);
 			return false;
 		} else if($confirm_password.val() != $password.val()){
@@ -294,12 +322,10 @@
    	 		button_continue.removeClass('loading').removeAttr('disabled');
       	if(data){
       		$app.form.check($email,msg.email_duplicate);
-      		//ga('send', 'event', 'Sign in/Sign up', 'Sign up', 'Duplicate email (xplORe)');
       	} else {
       		$app.form.clear(form+' .step-1');
 					$(form+' [data-signup="email"]').html($email.val());
 					step2();
-					//ga('send', 'event', 'Sign in/Sign up', 'Sign up', 'Step 1 success (xplORe)');
       	}
     	});
 		}
@@ -311,66 +337,40 @@
 		} else if($(form+' [name="lastname"]').val() == 0){
 			$app.form.check($(form+' [name="lastname"]'),msg.lastname);
 			return false;
-		} else if(!$app.check.skipGender && $(form+' [name="gender"]').val() == ""){
-			$app.form.check($(form+' [name="gender"]'),msg.gender);
+		} else if($(form+' [name="telephone"]').val() == 0){
+			$app.form.checkSpecific($(form+' [name="telephone"]'),msg.telephone,'#telephone-alert');
 			return false;
-		} else if(!$app.check.skipDOB && $(form+' [name="dob_date"]').val() == ""){
+		} else if(!(phoneCheck.test($(form+' [name="telephone"]').val()))){
+			$app.form.checkSpecific($(form+' [name="telephone"]'),msg.telephone_invalid,'#telephone-alert');
+			return false;
+		} else if ($app.check.telephoneCode == 'th' && $(form+' [name="telephone"]').val().toString().length < '8') {
+			$app.form.checkSpecific($(form+' [name="telephone"]'),msg.telephone_limit,'#telephone-alert');
+			return false;
+		} else if($(form+' [name="dob_date"]').val() == ""){
 			$app.form.check($(form+' [name="dob_date"]'),msg.birthday);
 			return false;
-		} else if(!$app.check.skipDOB && $(form+' [name="dob_month"]').val() == ""){
+		} else if($(form+' [name="dob_month"]').val() == ""){
 			$app.form.check($(form+' [name="dob_month"]'),msg.birthday);
 			return false;
-		} else if(!$app.check.skipDOB && $(form+' [name="dob_year"]').val() == ""){
+		} else if($(form+' [name="dob_year"]').val() == ""){
 			$app.form.check($(form+' [name="dob_year"]'),msg.birthday);
-			return false;
-		} else if(!$app.check.skipIDcard && $(form+' #idcard').is(':checked') && $(form+' [name="idcard_number"]').val() == 0){
-			$app.form.check($(form+' [name="idcard_number"]'),msg.idcard);
-			return false;
-		} else if(!$app.check.skipIDcard && $(form+' #idcard').is(':checked') && $(form+' [name="idcard_number"]').val().toString().length != '13'){
-			$app.form.check($(form+' [name="idcard_number"]'),msg.idcard_limit);
-			return false;
-		} else if(!$app.check.skipIDcard && $(form+' #idcard').is(':checked') && !$app.fn.checkIDCard($(form+' [name="idcard_number"]').val())){
-			$app.form.check($(form+' [name="idcard_number"]'),msg.idcard_invalid);
-			return false;
-		} else if(!$app.check.skipIDcard && $(form+' #passport').is(':checked') && $(form+' [name="passport_number"]').val() == 0){
-			$app.form.check($(form+' [name="passport_number"]'),msg.passport);
-			return false;
-		} else if (!$app.check.skipAddress && $(form+' [name="address"]').val() == 0) {
-			$app.form.check($(form+' [name="address"]'),msg.address);
-			return false;
-		} else if ($(form+' [name="country"]').val() == 0) {
-			$app.form.check($(form+' [name="country"]'),msg.country);
-			return false;
-		} else if (!$app.check.skipAddress && $app.check.countryTH && $(form+' [name="province"]').val() == "000") {
-			$app.form.check($(form+' [name="province"]'),msg.province);
-			return false;
-		} else if (!$app.check.skipAddress && $app.check.countryTH && $(form+' [name="district"]').val() == "000") {
-			$app.form.check($(form+' [name="district"]'),msg.district);
-			return false;
-		} else if (!$app.check.skipAddress && $(form+' [name="zipcode"]').val() == 0) {
-			$app.form.check($(form+' [name="zipcode"]'),msg.zipcode);
 			return false;
 		} else if (!$(form+' [name="terms-service"]').is(':checked')) {
 			$app.form.check2($(form+' [name="terms-service"]'),msg.terms);
 			return false;
-		} else if(grecaptcha.getResponse(RC_signup) == '' || grecaptcha.getResponse(RC_signup) == undefined){
-			$app.form.check($('.box-recaptcha'),'กรุณายืนยันตัวตน');
-			return false;
 		} else {
 			$app.form.clear(form);
 			var formData = $(form).serialize();
-			console.log(formData);
+			// console.log(formData);
 			button_submit.addClass('loading').attr('disabled','');
 			$.ajaxSetup({xhrFields: {withCredentials: true}});
 	    $.post('https://booking.thaiticketmajor.com/register/register.php',formData,function(data){
 	    	var result = $.parseJSON(data).result;
 	    	button_submit.removeClass('loading').removeAttr('disabled');
        	if(result){
-       		//ga('send', 'event', 'Sign in/Sign up', 'Sign up', 'Success');
-       		window.location = 'link-account.php';
+       		// window.location = 'link-account.php';
          	$(form)[0].reset();
        	} else {
-         	//ga('send', 'event', 'Sign in/Sign up', 'Sign up', 'Fail');
        		$app.dialog.custom('fail','ขออภัย','เกิดข้อผิดพลาดบางประการ <span class="text-nowrap">กรุณาลองใหม่อีกครั้ง</span>','ลองใหม่อีกครั้ง');
        	}
   		});
@@ -382,9 +382,9 @@
 	function step2(){
 		$('.step-1').hide();$('.step-2').show();
 		// fn load country init
-		/*if(!flagGetCountry){
-			$app.fn.getCountry();
-			flagGetCountry = true;
+		/*if(!flagLoadCountry){
+			$app.fn.loadCountry('#nationality','#country');
+			flagLoadCountry = true;
 		}*/
 	}
 </script>
