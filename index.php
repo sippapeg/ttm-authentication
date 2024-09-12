@@ -1,12 +1,8 @@
-<?php
-	include('inc/head.php');
-?>
+<?php include('inc/head.php'); ?>
 	<main class="main-container" role="main">
+		<?php include('inc/header.php'); ?>
 		<div class="container">
 			<div class="row justify-content-center">
-				<div class="col-auto">
-					<p class="mt-4"><img src="https://www.thaiticketmajor.com/assets/img/logo-ttm-tm.png" width="168" /></p>
-				</div>
 				<div class="col-12">
 					<hgroup class="hgroup">
 						<h1>ลงชื่อเข้าใช้</h1>

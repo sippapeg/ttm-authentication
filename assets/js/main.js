@@ -72,12 +72,34 @@ $app.check = {
 }
 $app.global = {
 	init : function(){
-
+		this.dropdown();
 	},
 	scroll : function(){
 		$app.check.scroll();
 		$(window).on('scroll',$app.check.scroll);
-	}
+	},
+	dropdown : function(){
+		if($('.box-dropdown').length!=0){
+			$('html').click(function(){
+				$('.box-dropdown').removeClass('show-dropdown');
+				$('.box-dropdown .btn-dropdown').removeClass('active');
+			});
+			$('.box-dropdown').click(function(e){e.stopPropagation();});
+			$('.box-dropdown .btn-dropdown').click(function(e){
+				$('.box-dropdown .btn-dropdown').removeClass('active');
+				if($(this).parent('.box-dropdown').hasClass('show-dropdown')){
+					$(this).removeClass('active');
+					$(this).parent('.box-dropdown').removeClass('show-dropdown');
+				} else {
+					$(this).addClass('active');
+					$('.box-dropdown').removeClass('show-dropdown');
+					$(this).parent('.box-dropdown').addClass('show-dropdown');
+					$(this).parent('.box-dropdown').find('.noti-icon').hide();
+				}
+				e.stopPropagation();
+			});
+		}
+	},
 }
 $app.dialog = {
 	open : function(dialog){
@@ -94,6 +116,9 @@ $app.dialog = {
 			break;
 			case 'fail':
 			$.fancybox.open('<div class="dialog-msg"><i class="fa fa-exclamation-circle fa-3x text-danger" aria-hidden="true"></i><h2>'+title+'</h2><p class="text-muted">'+msg+'</p><p><button type="button" class="btn btn-block btn-light-link btn-md" onclick="location.reload();">'+btn+'</button></p></div>');
+			break;
+			case 'retry':
+			$.fancybox.open('<div class="dialog-msg"><i class="fa fa-exclamation-circle fa-3x text-danger" aria-hidden="true"></i><h2>'+title+'</h2><p class="text-muted">'+msg+'</p><p><button type="button" class="btn btn-block btn-light-link btn-md" onclick="$.fancybox.close();">'+btn+'</button></p></div>');
 			break;
 		}
 	}
