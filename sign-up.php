@@ -27,12 +27,12 @@
 						<div class="step-1">
 							<div class="form-group">
 								<label class="pl-2h">ชื่อผู้ใช้ (อีเมล) <small class="text-red">*</small></label>
-								<input type="email" class="form-control" placeholder="" name="mbLogin" autocomplete="off" />
+								<input type="email" class="form-control" placeholder="" name="mbLogin" autocomplete="username" />
 								<div class="text-alert"></div>
 							</div>
 							<div class="form-group">
 								<label class="pl-2h">สร้างรหัสผ่าน <small class="text-red">*</small></label>
-								<input type="password" class="form-control" placeholder="" name="mbPasswd" maxlength="16" autocomplete="off" onkeyup="checkPassword()" onfocus="getPassword()" id="password" />
+								<input type="password" class="form-control" placeholder="" name="mbPasswd" maxlength="16" autocomplete="new-password" onkeyup="checkPassword()" onfocus="getPassword()" id="password" />
 								<div class="text-alert"></div>
 							</div>
 							<div class="form-group">
@@ -59,7 +59,7 @@
 							</div>
 							<div class="form-group">
 								<label class="pl-2h">ยืนยันรหัสผ่าน <small class="text-red">*</small></label>
-								<input type="password" class="form-control" placeholder="" name="mbPasswdC" maxlength="16" autocomplete="off" />
+								<input type="password" class="form-control" placeholder="" name="mbPasswdC" maxlength="16" autocomplete="new-password" />
 								<div class="text-alert"></div>
 							</div>
 							<div class="form-group px-2h">

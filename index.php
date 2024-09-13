@@ -12,12 +12,12 @@
 				<div class="col-12 col-md-6 col-xl-4">
 					<form class="mt-3" id="form-signin" novalidate>
 						<div class="form-group">
-							<input type="email" class="form-control form-control-lg" placeholder="ชื่อผู้ใช้ (อีเมล)" name="username" />
+							<input type="email" class="form-control form-control-lg" placeholder="ชื่อผู้ใช้ (อีเมล)" name="username" autocomplete="username" />
 							<div class="text-alert"></div>
 						</div>
 						<div class="form-group">
-							<input type="password" class="form-control form-control-lg" placeholder="รหัสผ่าน" name="password" />
-							<div class="text-alert">กรุณาใส่รหัสผ่าน</div>
+							<input type="password" class="form-control form-control-lg" placeholder="รหัสผ่าน" name="password" autocomplete="current-password" />
+							<div class="text-alert"></div>
 						</div>
 						<div class="form-group px-2h">
 							<div class="form-row">
