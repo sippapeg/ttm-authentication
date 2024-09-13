@@ -119,6 +119,9 @@ ul,ol{
 .pl-2h{
 	padding-left: 0.75rem;
 }
+.pr-2h{
+	padding-right: 0.75rem;
+}
 .px-2h{
 	padding-left: 0.75rem;
 	padding-right: 0.75rem;
@@ -155,7 +158,13 @@ ul,ol{
 	}
 }
 .main-container{
-	padding: 1rem 0 2rem 0;
+	padding: 1rem 0 0 0;
+}
+.main-footer{
+	padding: 2rem 0;
+}
+.border-top-2x{
+	border-top:2px solid #eee;
 }
 
 /* ======================================
@@ -422,7 +431,7 @@ label{
 			outline: none;
 		}
 		img{
-			width: 22px;
+			width: 18px;
 		}
 		span{
 			display: inline-block;
@@ -441,19 +450,19 @@ label{
 	border-radius: 5px;
 	visibility: hidden;
 	opacity: 0;
-	right: 0;left: auto;
+	right: auto;left: 0;
 	top:auto;bottom:100%;
 	margin-top: 5px;
 	display: block;
 	pointer-events:none;
 	@include transit(0);
-	@include transform(translateY(-5px));
+	@include transform(translateY(5px));
 	box-shadow: 0 0 10px rgba(0,0,0,0.5);
 	.show-dropdown &{
 		pointer-events:initial;
 		visibility: visible;
 		opacity: 1;
-		@include transform(translateY(5px));
+		@include transform(translateY(-5px));
 	}
 	.dropdown-divider{
 		background-color: #eee;
@@ -470,9 +479,6 @@ label{
 	padding: 8px 16px;
 	&:hover{
 		color:$color_menuTXT;
-	}
-	.main-nav &{
-		font-size: 16px;
 	}
 	// google translate plugin
 	.goog-te-gadget-icon{display: none!important;}
@@ -505,5 +511,28 @@ label{
 			margin-left: 5px;
 			color:$color_menuTXT!important;
 		}
+	}
+}
+.lang-selector{
+	font-size: 0;
+	img,a{display: none;}
+	.goog-te-combo{
+		@extend .custom-select;
+		font-family: $font;
+		font-size: 14px;
+		// border:none;
+		// background-color: #f7f7f7;
+		color:#333;
+		height: auto;
+		padding: 0.25rem 1.25rem 0.25rem 0.4rem;
+		&:hover{
+			// background-color: #eee;
+		}
+		option{
+			font-size: 14px;
+		}
+	}
+	.goog-te-gadget{
+		font-size: 0;
 	}
 }

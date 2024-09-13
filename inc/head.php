@@ -12,7 +12,10 @@
 		'image' => '',
 		'cache_version' => '?v='.date('YmdHis')
 	);
-	include('inc/lang.php');
+	$_lang = 'th';
+	if(isset($_COOKIE['__la'])){
+		$_lang = $_COOKIE['__la'];
+	}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +53,15 @@
 	<!--[if lt IE 9]>
 		<script type="text/javascript" src="assets/js/core/html5shiv.js"></script>
 	<![endif]-->
+ <script>
+	 function setLang(la){
+	 	if($.cookie('__la') != undefined){
+	 		$.removeCookie('__la');
+	 	}
+	 	$.cookie('__la', la, { expires: 7, path: '/', domain:'.thaiticketmajor.com' });
+		location.reload();
+	 }
+ </script>
 </head>
 <body>
 	<div class="main">

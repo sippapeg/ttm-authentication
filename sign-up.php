@@ -39,6 +39,11 @@
 								<ul class="checklist-password" id="requirements" style="display:none;">
 									<li class="text-med">รหัสผ่านต้องประกอบไปด้วย :</li>
 									<?php 
+									$_checkmsg_1 = "ความยาวอย่างน้อย 8 ตัวอักษร";
+									$_checkmsg_2 = "ตัวอักษรพิมพ์เล็ก (a-z) อย่างน้อย 1 ตัว";
+									$_checkmsg_3 = "ตัวอักษรพิมพ์ใหญ่ (A-Z) อย่างน้อย 1 ตัว";
+									$_checkmsg_4 = "ตัวเลข (0-9) อย่างน้อย 1 ตัว";
+									$_checkmsg_5 = "อักขระพิเศษ (@, #, &, !...) อย่างน้อย 1 ตัว";
 									$_checklist_password = array(
 										array("length","".$_checkmsg_1.""),
 										array("lowercase","".$_checkmsg_2.""),
